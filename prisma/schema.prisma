@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Local {
+  id          String   @id @default(uuid())
+  nombre      String
+  direccion   String?
+  latitud     Decimal
+  longitud    Decimal
+  radioMetros Int      @default(100)
+  activo      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  registros RegistroFichaje[]
+}
+
+model Empleada {
+  id              String   @id @default(uuid())
+  nombre          String
+  apellido        String
+  dni             String   @unique
+  email           String   @unique
+  telefono        String?
+  fotoRegistroUrl String?
+  pin             String?
+  activa          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  dispositivos DispositivoAutorizado[]
+  registros    RegistroFichaje[]
+}
+
+model DispositivoAutorizado {
+  id                   String   @id @default(uuid())
+  idEmpleada           String
+  deviceFingerprint    String
+  nombre               String?
+  webauthnCredentialId String?
+  activo               Boolean  @default(true)
+  createdAt            DateTime @default(now())
+
+  empleada Empleada @relation(fields: [idEmpleada], references: [id])
+}
+
+enum TipoFichaje {
+  ENTRADA
+  SALIDA
+}
+
+enum MetodoVerificacion {
+  WEBAUTHN_HUELLA
+  WEBAUTHN_FACE
+  RECONOCIMIENTO_FACIAL
+  PIN_EMERGENCIA
+}
+
+model RegistroFichaje {
+  id                  String             @id @default(uuid())
+  idEmpleada          String
+  idLocal             String?
+  tipo                TipoFichaje
+  timestamp           DateTime           @default(now())
+  latitud             Decimal
+  longitud            Decimal
+  metodoVerificacion  MetodoVerificacion
+  dispositivoUsado    String?
+  esDispositivoPropio Boolean            @default(true)
+  matchFacialPorcentaje Decimal?
+  fotoVerificacionUrl   String?
+  createdAt           DateTime           @default(now())
+
+  empleada Empleada @relation(fields: [idEmpleada], references: [id])
+  local    Local?   @relation(fields: [idLocal], references: [id])
+}
+
+enum Rol {
+  SUPER_ADMIN
+  ADMIN
+  VIEWER
+}
+
+model UsuarioAdmin {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  nombre       String?
+  rol          Rol      @default(ADMIN)
+  activo       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
