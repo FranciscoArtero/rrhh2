@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { toast } from 'sonner'
+import { getBaseUrl } from '@/lib/config'
 
 
 export const useFichajes = () => {
@@ -7,7 +8,7 @@ export const useFichajes = () => {
 
     const getHoy = useCallback(async () => {
         try {
-            const res = await fetch('/api/fichajes/hoy')
+            const res = await fetch(`${getBaseUrl()}/api/fichajes/hoy`)
             if (!res.ok) throw new Error('Error')
             const data = await res.json()
             return data.data
@@ -23,7 +24,7 @@ export const useFichajes = () => {
             if (month) params.append('month', month.toString())
             if (year) params.append('year', year.toString())
 
-            const res = await fetch(`/api/fichajes/mi-historial?${params.toString()}`)
+            const res = await fetch(`${getBaseUrl()}/api/fichajes/mi-historial?${params.toString()}`)
             if (!res.ok) throw new Error('Error fetching history')
             const data = await res.json()
             return data.data
@@ -35,7 +36,7 @@ export const useFichajes = () => {
 
     const checkUbicacion = useCallback(async (lat: number, lng: number) => {
         try {
-            const res = await fetch(`/api/locales/cercanos?lat=${lat}&lng=${lng}`)
+            const res = await fetch(`${getBaseUrl()}/api/locales/cercanos?lat=${lat}&lng=${lng}`)
             if (!res.ok) throw new Error('Error checking location')
             const data = await res.json()
             return data.data // Returns sorted list with distance and isWithinRadius
@@ -48,7 +49,7 @@ export const useFichajes = () => {
     const marcarEntrada = async (payload: any) => {
         setLoading(true)
         try {
-            const res = await fetch('/api/fichajes/entrada', {
+            const res = await fetch(`${getBaseUrl()}/api/fichajes/entrada`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -71,7 +72,7 @@ export const useFichajes = () => {
     const marcarSalida = async (payload: any) => {
         setLoading(true)
         try {
-            const res = await fetch('/api/fichajes/salida', {
+            const res = await fetch(`${getBaseUrl()}/api/fichajes/salida`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
