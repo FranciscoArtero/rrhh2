@@ -13,7 +13,7 @@ import { LoadingSpinner } from "@/components/shared/LoadingSpinner"
 import { Download, FileText, CalendarCheck, MapPin } from "lucide-react"
 import { downloadCSV } from "@/lib/calculos"
 
-export const dynamic = 'force-dynamic'
+
 
 export default function ReportsPage() {
     const [loading, setLoading] = useState(false)
