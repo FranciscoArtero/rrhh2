@@ -15,6 +15,9 @@ import { downloadCSV } from "@/lib/calculos"
 
 
 
+
+export const dynamic = 'force-dynamic'
+
 export default function ReportsPage() {
     const [loading, setLoading] = useState(false)
     const [reportData, setReportData] = useState<any[]>([])

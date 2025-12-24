@@ -11,6 +11,9 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGri
 
 
 
+
+export const dynamic = 'force-dynamic'
+
 export default function AdminDashboardPage() {
     const [stats, setStats] = useState<any>(null)
     const [loading, setLoading] = useState(true)

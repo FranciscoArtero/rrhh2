@@ -19,6 +19,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 
 
+
+export const dynamic = 'force-dynamic'
+
 export default function EmpleadasPage() {
     const { getEmpleadas, savedEmpleada, deleteEmpleada, deleteEmployeePhoto, resetPin, loading } = useAdmin()
     const [empleadas, setEmpleadas] = useState<any[]>([])
