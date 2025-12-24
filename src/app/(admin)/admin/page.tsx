@@ -9,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts' // Importing directly
 
+export const dynamic = 'force-dynamic'
+
 export default function AdminDashboardPage() {
     const [stats, setStats] = useState<any>(null)
     const [loading, setLoading] = useState(true)
