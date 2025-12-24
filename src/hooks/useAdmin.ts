@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { toast } from 'sonner'
+import { getBaseUrl } from '@/lib/config'
 
 export const useAdmin = () => {
     const [loading, setLoading] = useState(false)
@@ -7,7 +8,7 @@ export const useAdmin = () => {
     // STATS
     const getEstadisticas = useCallback(async () => {
         try {
-            const res = await fetch('/api/admin/stats')
+            const res = await fetch(`${getBaseUrl()}/api/admin/stats`)
             const data = await res.json()
             return data.success ? data.data : null
         } catch {
@@ -18,7 +19,7 @@ export const useAdmin = () => {
     // LOCALES
     const getLocales = useCallback(async () => {
         try {
-            const res = await fetch('/api/locales')
+            const res = await fetch(`${getBaseUrl()}/api/locales`)
             const data = await res.json()
             return data.success ? data.data : []
         } catch {
@@ -31,7 +32,7 @@ export const useAdmin = () => {
         try {
             const isEdit = !!local.id
             const method = isEdit ? 'PUT' : 'POST'
-            const url = isEdit ? `/api/locales/${local.id}` : '/api/locales'
+            const url = isEdit ? `${getBaseUrl()}/api/locales/${local.id}` : `${getBaseUrl()}/api/locales`
 
             const res = await fetch(url, {
                 method,
@@ -57,7 +58,7 @@ export const useAdmin = () => {
 
     const deleteLocal = async (id: string) => {
         try {
-            const res = await fetch(`/api/locales/${id}`, { method: 'DELETE' })
+            const res = await fetch(`${getBaseUrl()}/api/locales/${id}`, { method: 'DELETE' })
             if (res.ok) {
                 toast.success("Local eliminado")
                 return true
@@ -71,7 +72,7 @@ export const useAdmin = () => {
     // EMPLEADAS
     const getEmpleadas = useCallback(async () => {
         try {
-            const res = await fetch('/api/empleadas')
+            const res = await fetch(`${getBaseUrl()}/api/empleadas`)
             const data = await res.json()
             return data.success ? data.data : []
         } catch {
@@ -84,7 +85,7 @@ export const useAdmin = () => {
         try {
             const isEdit = !!empleada.id
             const method = isEdit ? 'PUT' : 'POST'
-            const url = isEdit ? `/api/empleadas/${empleada.id}` : '/api/empleadas'
+            const url = isEdit ? `${getBaseUrl()}/api/empleadas/${empleada.id}` : `${getBaseUrl()}/api/empleadas`
 
             const res = await fetch(url, {
                 method,
@@ -110,7 +111,7 @@ export const useAdmin = () => {
 
     const deleteEmpleada = async (id: string) => {
         try {
-            const res = await fetch(`/api/empleadas/${id}`, { method: 'DELETE' })
+            const res = await fetch(`${getBaseUrl()}/api/empleadas/${id}`, { method: 'DELETE' })
             if (res.ok) {
                 toast.success("Empleada desactivada")
                 return true
@@ -124,7 +125,7 @@ export const useAdmin = () => {
     const resetPin = async (id: string) => {
         setLoading(true)
         try {
-            const res = await fetch(`/api/empleadas/${id}/reset-pin`, { method: 'POST' })
+            const res = await fetch(`${getBaseUrl()}/api/empleadas/${id}/reset-pin`, { method: 'POST' })
             const data = await res.json()
             if (data.success) {
                 toast.success("PIN reseteado exitosamente")
@@ -143,7 +144,7 @@ export const useAdmin = () => {
 
     const deleteEmployeePhoto = async (id: string) => {
         try {
-            const res = await fetch(`/api/empleados/${id}/foto`, { method: 'DELETE' })
+            const res = await fetch(`${getBaseUrl()}/api/empleados/${id}/foto`, { method: 'DELETE' })
             const data = await res.json()
             if (data.success) {
                 toast.success("Foto eliminada correctamente")
@@ -161,15 +162,11 @@ export const useAdmin = () => {
     const getFichajes = useCallback(async (filters: any) => {
         try {
             const params = new URLSearchParams()
-            // We'll reuse the admin route we created earlier: /api/fichajes/admin
-            // It supports idEmpleada, idLocal, dateFrom, dateTo (needs to be implemented in that route if not present)
-            // Checking previous turn... I think I implemented basic filtering in /api/fichajes/admin
-            // Let's assume standard query params
             Object.keys(filters).forEach(key => {
                 if (filters[key]) params.append(key, filters[key])
             })
 
-            const res = await fetch(`/api/fichajes/admin?${params.toString()}`)
+            const res = await fetch(`${getBaseUrl()}/api/fichajes/admin?${params.toString()}`)
             const data = await res.json()
             return data.success ? data.data : []
         } catch {
