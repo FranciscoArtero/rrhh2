@@ -9,13 +9,10 @@ export function getBaseUrl(): string {
         return process.env.NEXTAUTH_URL;
     }
 
-    // Check Railway domain strictly
-    if (process.env.RAILWAY_PUBLIC_DOMAIN && process.env.RAILWAY_PUBLIC_DOMAIN.trim() !== '') {
-        return `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`;
-    }
-
-    // Safe fallback for build time - localhost
-    // This allows fetch to form a valid URL (http://localhost:3000/api/...) rather than failing on relative URL or empty string.
-    // The fetch might fail with connection refused locally/on-build, but that's better than Invalid URL, and catch blocks will handle it.
-    return 'http://localhost:3000';
+    // Default to relative URL (empty string) for maximum safety
+    // This relies on the fact that admin pages are "use client" so fetches happen in browser.
+    // If a fetch happens in Node environment with empty string base, it will fail with "Invalid URL",
+    // but the input will be "/api/...", NOT "https://".
+    // If the error was "https://", it came from the Railway logic we just removed.
+    return '';
 }
