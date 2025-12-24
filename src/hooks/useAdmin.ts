@@ -7,6 +7,7 @@ export const useAdmin = () => {
 
     // STATS
     const getEstadisticas = useCallback(async () => {
+        if (typeof window === 'undefined') return null
         try {
             const res = await fetch(`${getBaseUrl()}/api/admin/stats`)
             const data = await res.json()
@@ -18,6 +19,7 @@ export const useAdmin = () => {
 
     // LOCALES
     const getLocales = useCallback(async () => {
+        if (typeof window === 'undefined') return []
         try {
             const res = await fetch(`${getBaseUrl()}/api/locales`)
             const data = await res.json()
@@ -71,6 +73,7 @@ export const useAdmin = () => {
 
     // EMPLEADAS
     const getEmpleadas = useCallback(async () => {
+        if (typeof window === 'undefined') return []
         try {
             const res = await fetch(`${getBaseUrl()}/api/empleadas`)
             const data = await res.json()
@@ -160,6 +163,7 @@ export const useAdmin = () => {
 
     // FICHAJES
     const getFichajes = useCallback(async (filters: any) => {
+        if (typeof window === 'undefined') return []
         try {
             const params = new URLSearchParams()
             Object.keys(filters).forEach(key => {
