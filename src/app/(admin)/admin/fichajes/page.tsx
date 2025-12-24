@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { exportToCSV } from "@/lib/export"
 import { Download, Search, X } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 export default function FichajesPage() {
     const { getFichajes, getLocales, getEmpleadas, loading } = useAdmin()
     const [fichajes, setFichajes] = useState<any[]>([])

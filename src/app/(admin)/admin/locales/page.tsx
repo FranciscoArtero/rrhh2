@@ -17,6 +17,8 @@ import { Label } from "@/components/ui/label"
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
 import { toast } from "sonner"
 
+export const dynamic = 'force-dynamic'
+
 export default function LocalesPage() {
     const { getLocales, savedLocal, deleteLocal, loading } = useAdmin()
     const [locales, setLocales] = useState<any[]>([])
