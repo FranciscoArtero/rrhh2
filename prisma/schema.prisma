@@ -43,11 +43,23 @@ model DispositivoAutorizado {
   idEmpleada           String
   deviceFingerprint    String
   nombre               String?
-  webauthnCredentialId String?
+  webauthnCredentialId String?  @unique
+  webauthnPublicKey    String?
+  webauthnCounter      BigInt   @default(0)
+  ultimoUso            DateTime?
   activo               Boolean  @default(true)
   createdAt            DateTime @default(now())
 
   empleada Empleada @relation(fields: [idEmpleada], references: [id])
+}
+
+model WebAuthnChallenge {
+  id                String   @id @default(uuid())
+  empleadoId        String
+  challenge         String
+  tipo              String   
+  expiresAt         DateTime
+  createdAt         DateTime @default(now())
 }
 
 enum TipoFichaje {

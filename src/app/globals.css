@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* BACKGROUNDS (Cream #FFF8F0 is approx 32 58% 97%) */
+  --background: 32 58% 97%; 
+  --foreground: 0 0% 10%; /* #1a1a1a */
+
+  /* CARDS (Keep white for contrast) */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 10%;
+ 
+  /* POPOVERS */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 10%;
+ 
+  /* PRIMARY (Red #b32320 is approx 359 70% 41%) */
+  --primary: 359 70% 41%;
+  --primary-foreground: 0 0% 100%;
+ 
+  /* SECONDARY (Cream darker #FFF0E0 is approx 32 58% 94%) */
+  --secondary: 32 58% 94%;
+  --secondary-foreground: 0 0% 10%;
+ 
+  /* MUTED (Gray for secondary text) */
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 40%; /* #666666 */
+ 
+  /* ACCENT (For hovers, etc - use Secondary) */
+  --accent: 32 58% 94%;
+  --accent-foreground: 0 0% 10%;
+ 
+  /* DESTRUCTIVE (Red #dc2626) */
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 210 40% 98%;
+
+  /* BORDERS (#e5e5e5) */
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 359 70% 41%;
+ 
+  --radius: 0.5rem;
+}
+
+/* Force Light Mode/Brand colors in Dark Mode for now */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 32 58% 97%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 359 70% 41%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 32 58% 94%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 32 58% 94%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 359 70% 41%;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 2px);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Ensure borders are visible */
+.border, .border-b, .border-t, .border-l, .border-r {
+  border-color: hsl(var(--border));
 }

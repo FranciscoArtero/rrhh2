@@ -7,9 +7,9 @@ async function main() {
   console.log('🌱 Starting seed...')
 
   // 1. Create Admin
-  const adminEmail = 'admin@empresa.com'
+  const adminEmail = 'admin@lavene.com'
   const passwordHash = await bcrypt.hash('admin123', 10)
-  
+
   const admin = await prisma.usuarioAdmin.upsert({
     where: { email: adminEmail },
     update: {},
@@ -27,7 +27,7 @@ async function main() {
     {
       nombre: 'Local Centro',
       direccion: 'Av. Corrientes 1234, CABA',
-      latitud: -34.6037, 
+      latitud: -34.6037,
       longitud: -58.3816,
       radioMetros: 100,
     },
