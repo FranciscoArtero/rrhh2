@@ -5,7 +5,10 @@ export function getBaseUrl(): string {
     }
 
     // On the server (runtime) - strict check for valid domain
-    if (process.env.NEXTAUTH_URL && !process.env.NEXTAUTH_URL.includes('${{')) {
+    // Must be a valid URL, not just protocol, and not template variable
+    if (process.env.NEXTAUTH_URL &&
+        !process.env.NEXTAUTH_URL.includes('${{') &&
+        process.env.NEXTAUTH_URL.length > 10) {
         return process.env.NEXTAUTH_URL;
     }
 
