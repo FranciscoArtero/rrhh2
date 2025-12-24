@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { toast } from 'sonner'
-import { getBaseUrl } from '@/lib/config'
+import { buildApiUrl } from '@/lib/url'
 
 export const useAdmin = () => {
     const [loading, setLoading] = useState(false)
@@ -8,8 +8,11 @@ export const useAdmin = () => {
     // STATS
     const getEstadisticas = useCallback(async () => {
         if (typeof window === 'undefined') return null
+        const url = buildApiUrl('/api/admin/stats')
+        if (!url) return null
+
         try {
-            const res = await fetch(`${getBaseUrl()}/api/admin/stats`)
+            const res = await fetch(url)
             const data = await res.json()
             return data.success ? data.data : null
         } catch {
@@ -20,8 +23,11 @@ export const useAdmin = () => {
     // LOCALES
     const getLocales = useCallback(async () => {
         if (typeof window === 'undefined') return []
+        const url = buildApiUrl('/api/locales')
+        if (!url) return []
+
         try {
-            const res = await fetch(`${getBaseUrl()}/api/locales`)
+            const res = await fetch(url)
             const data = await res.json()
             return data.success ? data.data : []
         } catch {
@@ -34,7 +40,13 @@ export const useAdmin = () => {
         try {
             const isEdit = !!local.id
             const method = isEdit ? 'PUT' : 'POST'
-            const url = isEdit ? `${getBaseUrl()}/api/locales/${local.id}` : `${getBaseUrl()}/api/locales`
+            const path = isEdit ? `/api/locales/${local.id}` : '/api/locales'
+            const url = buildApiUrl(path)
+
+            if (!url) {
+                toast.error("Error de configuración de API")
+                return false
+            }
 
             const res = await fetch(url, {
                 method,
@@ -59,8 +71,10 @@ export const useAdmin = () => {
     }
 
     const deleteLocal = async (id: string) => {
+        const url = buildApiUrl(`/api/locales/${id}`)
+        if (!url) return false
         try {
-            const res = await fetch(`${getBaseUrl()}/api/locales/${id}`, { method: 'DELETE' })
+            const res = await fetch(url, { method: 'DELETE' })
             if (res.ok) {
                 toast.success("Local eliminado")
                 return true
@@ -74,8 +88,11 @@ export const useAdmin = () => {
     // EMPLEADAS
     const getEmpleadas = useCallback(async () => {
         if (typeof window === 'undefined') return []
+        const url = buildApiUrl('/api/empleadas')
+        if (!url) return []
+
         try {
-            const res = await fetch(`${getBaseUrl()}/api/empleadas`)
+            const res = await fetch(url)
             const data = await res.json()
             return data.success ? data.data : []
         } catch {
@@ -88,7 +105,13 @@ export const useAdmin = () => {
         try {
             const isEdit = !!empleada.id
             const method = isEdit ? 'PUT' : 'POST'
-            const url = isEdit ? `${getBaseUrl()}/api/empleadas/${empleada.id}` : `${getBaseUrl()}/api/empleadas`
+            const path = isEdit ? `/api/empleadas/${empleada.id}` : '/api/empleadas'
+            const url = buildApiUrl(path)
+
+            if (!url) {
+                toast.error("Error de configuración")
+                return null
+            }
 
             const res = await fetch(url, {
                 method,
@@ -113,8 +136,10 @@ export const useAdmin = () => {
     }
 
     const deleteEmpleada = async (id: string) => {
+        const url = buildApiUrl(`/api/empleadas/${id}`)
+        if (!url) return false
         try {
-            const res = await fetch(`${getBaseUrl()}/api/empleadas/${id}`, { method: 'DELETE' })
+            const res = await fetch(url, { method: 'DELETE' })
             if (res.ok) {
                 toast.success("Empleada desactivada")
                 return true
@@ -127,8 +152,13 @@ export const useAdmin = () => {
 
     const resetPin = async (id: string) => {
         setLoading(true)
+        const url = buildApiUrl(`/api/empleadas/${id}/reset-pin`)
+        if (!url) {
+            setLoading(false)
+            return null
+        }
         try {
-            const res = await fetch(`${getBaseUrl()}/api/empleadas/${id}/reset-pin`, { method: 'POST' })
+            const res = await fetch(url, { method: 'POST' })
             const data = await res.json()
             if (data.success) {
                 toast.success("PIN reseteado exitosamente")
@@ -146,8 +176,10 @@ export const useAdmin = () => {
     }
 
     const deleteEmployeePhoto = async (id: string) => {
+        const url = buildApiUrl(`/api/empleados/${id}/foto`)
+        if (!url) return false
         try {
-            const res = await fetch(`${getBaseUrl()}/api/empleados/${id}/foto`, { method: 'DELETE' })
+            const res = await fetch(url, { method: 'DELETE' })
             const data = await res.json()
             if (data.success) {
                 toast.success("Foto eliminada correctamente")
@@ -170,7 +202,10 @@ export const useAdmin = () => {
                 if (filters[key]) params.append(key, filters[key])
             })
 
-            const res = await fetch(`${getBaseUrl()}/api/fichajes/admin?${params.toString()}`)
+            const url = buildApiUrl(`/api/fichajes/admin?${params.toString()}`)
+            if (!url) return []
+
+            const res = await fetch(url)
             const data = await res.json()
             return data.success ? data.data : []
         } catch {
