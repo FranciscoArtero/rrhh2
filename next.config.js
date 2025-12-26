@@ -7,7 +7,7 @@ const withPWA = require('next-pwa')({
 })
 
 const nextConfig = {
-    // Add other standard config here if needed
+    // Railway automatically handles port binding
 }
 
 module.exports = withPWA(nextConfig)
