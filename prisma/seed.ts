@@ -4,6 +4,12 @@ import * as bcrypt from 'bcryptjs'
 const prisma = new PrismaClient()
 
 async function main() {
+  const existingAdmin = await prisma.usuarioAdmin.findFirst()
+  if (existingAdmin) {
+    console.log('Seed ya ejecutado (Admin existe), saltando...')
+    return
+  }
+
   console.log('🌱 Starting seed...')
 
   // 1. Create Admin
