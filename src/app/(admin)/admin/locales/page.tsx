@@ -277,6 +277,7 @@ export default function LocalesPage() {
                                 <Label>Vista Previa</Label>
                                 <div className="w-full h-40 bg-slate-100 rounded border overflow-hidden relative group">
                                     <iframe
+                                        title="Vista previa del mapa"
                                         width="100%"
                                         height="100%"
                                         frameBorder="0"
