@@ -49,7 +49,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Main Status Card */}
-            <Card className={`border-l-4 ${status?.isClockedIn ? 'border-l-green-500' : (status?.lastPunch?.tipo === 'SALIDA' ? 'border-l-blue-500' : 'border-l-slate-300')}`}>
+            <Card className={`border-l-4 ${status?.isClockedIn ? 'border-l-green-500' : (status?.lastPunch?.tipo === 'SALIDA' ? 'border-l-primary' : 'border-l-slate-300')}`}>
                 <CardHeader className="pb-2">
                     <CardTitle className="text-lg">Estado Actual</CardTitle>
                 </CardHeader>
@@ -67,7 +67,7 @@ export default function DashboardPage() {
                             </>
                         ) : status?.lastPunch?.tipo === 'SALIDA' && new Date(status.lastPunch.timestamp).getDate() === currentDate?.getDate() ? (
                             <>
-                                <div className="text-blue-600 font-bold text-xl">🔵 JORNADA COMPLETADA</div>
+                                <div className="text-primary font-bold text-xl">🔵 JORNADA COMPLETADA</div>
                                 <div className="text-sm text-slate-600">
                                     Salida: {new Date(status.lastPunch.timestamp).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false })}
                                 </div>

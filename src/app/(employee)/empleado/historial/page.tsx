@@ -64,7 +64,7 @@ export default function HistoryPage() {
                 <div className="space-y-4">
                     {history.length > 0 ? history.map((item: any) => (
                         <Card key={item.id} className="relative overflow-hidden">
-                            <div className={`absolute top-0 left-0 w-1 h-full ${item.tipo === 'ENTRADA' ? 'bg-green-500' : 'bg-blue-500'}`} />
+                            <div className={`absolute top-0 left-0 w-1 h-full ${item.tipo === 'ENTRADA' ? 'bg-green-500' : 'bg-primary'}`} />
                             <CardContent className="p-4 pl-6">
                                 <div className="flex justify-between items-start">
                                     <div>

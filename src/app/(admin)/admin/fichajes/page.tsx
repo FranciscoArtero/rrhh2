@@ -120,7 +120,7 @@ export default function FichajesPage() {
                     { header: 'Local', cell: (row) => row.local?.nombre || '-' },
                     {
                         header: 'Tipo', cell: (row) => (
-                            <span className={`font-bold ${row.tipo === 'ENTRADA' ? 'text-green-600' : 'text-blue-600'}`}>
+                            <span className={`font-bold ${row.tipo === 'ENTRADA' ? 'text-green-600' : 'text-primary'}`}>
                                 {row.tipo}
                             </span>
                         )

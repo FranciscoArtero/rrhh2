@@ -31,7 +31,7 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
     ]
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="min-h-screen bg-background flex flex-col">
             {/* Header */}
             <header className="bg-white border-b px-4 py-3 flex items-center justify-between sticky top-0 z-10">
                 <div className="flex items-center gap-2">

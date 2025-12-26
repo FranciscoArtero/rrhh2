@@ -184,7 +184,7 @@ export default function FicharPage() {
                 <Card className="border-0 shadow-lg overflow-hidden">
                     <CardHeader className="bg-slate-50 border-b pb-4">
                         <CardTitle className="flex items-center gap-2">
-                            <MapPin className="h-5 w-5 text-blue-600" />
+                            <MapPin className="h-5 w-5 text-primary" />
                             Ubicación Actual
                         </CardTitle>
                         <CardDescription>Verificando que estés en el local...</CardDescription>
@@ -192,7 +192,7 @@ export default function FicharPage() {
                     <CardContent className="pt-6 flex flex-col items-center gap-4">
                         {pageLoading ? (
                             <div className="flex flex-col items-center py-8 gap-3">
-                                <LoadingSpinner className="w-8 h-8 text-blue-500" />
+                                <LoadingSpinner className="w-8 h-8 text-primary" />
                                 <span className="text-sm text-slate-500 animate-pulse">Obteniendo coordenadas GPS...</span>
                             </div>
                         ) : coords ? (
@@ -225,7 +225,7 @@ export default function FicharPage() {
                                         <RefreshCw className="w-4 h-4 mr-2" /> Actualizar
                                     </Button>
                                     <Button
-                                        className={cn("flex-1", !nearestLocal?.isWithinRadius ? "opacity-50 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700")}
+                                        className={cn("flex-1", !nearestLocal?.isWithinRadius ? "opacity-50 cursor-not-allowed" : "bg-primary hover:bg-red-700")}
                                         disabled={!nearestLocal?.isWithinRadius}
                                         onClick={() => setStep('VERIFY')}
                                     >
@@ -263,7 +263,7 @@ export default function FicharPage() {
                         <div className="grid gap-4">
                             {/* Option 1: Biometrics (if available) */}
                             {empleada?.dispositivos && empleada.dispositivos.length > 0 && (
-                                <Card className="overflow-hidden cursor-pointer hover:border-blue-400 transition-colors border-l-4 border-l-blue-500">
+                                <Card className="overflow-hidden cursor-pointer hover:border-red-400 transition-colors border-l-4 border-l-primary">
                                     <CardContent className="p-0">
                                         <div className="p-4">
                                             <BiometricAuth

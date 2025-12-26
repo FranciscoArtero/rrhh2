@@ -54,7 +54,7 @@ export function BiometricAuth({ onSuccess, onError, tieneDispositivoRegistrado, 
             <Button
                 onClick={handleVerification}
                 disabled={loading}
-                className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
+                className="w-full h-14 text-lg bg-gradient-to-r from-primary to-rose-600 hover:from-red-700 hover:to-rose-700 transition-all shadow-lg"
             >
                 {loading ? (
                     <>
