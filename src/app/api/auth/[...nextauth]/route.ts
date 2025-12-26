@@ -1,18 +1,8 @@
 import NextAuth from "next-auth"
 import { authOptions } from "@/lib/auth"
 
-// Fix NEXTAUTH_URL for Railway environments
-const getAuthUrl = () => {
-    if (process.env.NEXTAUTH_URL) {
-        return process.env.NEXTAUTH_URL;
-    }
-    if (process.env.RAILWAY_PUBLIC_DOMAIN) {
-        return `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`;
-    }
-    return 'http://localhost:3000';
-};
-
-process.env.NEXTAUTH_URL = getAuthUrl();
+// NextAuth reads NEXTAUTH_URL from process.env automatically.
+// No manual URL configuration is needed here.
 
 const handler = NextAuth(authOptions)
 

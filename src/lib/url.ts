@@ -1,4 +1,4 @@
-const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL || '';
+const RAW_API_BASE_URL = process.env.NEXT_PUBLIC_APP_URL || '';
 
 /**
  * Returns a valid base URL or null if not configured/invalid.
