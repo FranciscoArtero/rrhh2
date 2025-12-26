@@ -45,7 +45,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Sidebar - Branded with La Vene red */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-40 w-64 bg-primary text-white transform transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0 flex flex-col",
+                "fixed inset-y-0 left-0 z-40 w-64 bg-[#b32320] text-white transform transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0 flex flex-col",
                 sidebarOpen ? "translate-x-0" : "-translate-x-full"
             )}>
                 <div className="p-4 border-b border-white/20 flex justify-between items-center">
