@@ -1,8 +1,8 @@
 import NextAuth from "next-auth"
 import { authOptions } from "@/lib/auth"
 
-// Note: NEXTAUTH_URL sanitization is handled in src/instrumentation.ts
-// which runs before any other code
+// NEXTAUTH_URL must be set correctly in Railway environment variables.
+// No code manipulation needed - NextAuth reads it directly from process.env.
 
 const handler = NextAuth(authOptions)
 
