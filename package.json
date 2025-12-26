@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "echo 'Cache Buster 1' && next build --webpack",
+    "build": "echo 'Cache Buster 2' && next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",

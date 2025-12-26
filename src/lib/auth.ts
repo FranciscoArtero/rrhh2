@@ -58,6 +58,8 @@ export const authOptions: NextAuthOptions = {
             return session
         },
     },
+    // @ts-expect-error
+    trustHost: true,
 }
 
 // --- Employee Auth Helper (Custom JWT) ---
