@@ -86,7 +86,7 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6 text-center text-sm">
-                <Link href="/api/auth/signin" className="text-slate-500 hover:text-primary underline">
+                <Link href="/admin/login" className="text-slate-500 hover:text-primary underline">
                     ¿Sos admin? Ingresá aquí
                 </Link>
             </div>
