@@ -1,0 +1,14 @@
+# Verificar que package-lock.json este incluido cuando package.json cambia
+# Esto previene errores de "npm ci" por lock files desincronizados
+
+if git diff --cached --name-only | grep -q "^package\.json$"; then
+  if ! git diff --cached --name-only | grep -q "^package-lock\.json$"; then
+    echo ""
+    echo "ERROR: Modificaste package.json pero no incluiste package-lock.json"
+    echo "Ejecuta 'npm install' y agrega package-lock.json al commit:"
+    echo "  npm install"
+    echo "  git add package-lock.json"
+    echo ""
+    exit 1
+  fi
+fi
