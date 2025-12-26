@@ -43,19 +43,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 />
             )}
 
-            {/* Sidebar */}
+            {/* Sidebar - Branded with La Vene red */}
             <aside className={cn(
-                "fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-white transform transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0 flex flex-col",
+                "fixed inset-y-0 left-0 z-40 w-64 bg-primary text-white transform transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0 flex flex-col",
                 sidebarOpen ? "translate-x-0" : "-translate-x-full"
             )}>
-                <div className="p-4 border-b border-slate-700 flex justify-between items-center">
+                <div className="p-4 border-b border-white/20 flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <div className="relative w-8 h-8">
                             <Image src="/logo.png" alt="La Vene" fill className="object-contain" />
                         </div>
                         <h1 className="text-xl font-bold">La Vene</h1>
                     </div>
-                    <Button variant="ghost" size="icon" className="lg:hidden text-white" onClick={() => setSidebarOpen(false)}>
+                    <Button variant="ghost" size="icon" className="lg:hidden text-white hover:bg-white/20" onClick={() => setSidebarOpen(false)}>
                         <X className="h-5 w-5" />
                     </Button>
                 </div>
@@ -70,7 +70,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 onClick={() => setSidebarOpen(false)}
                                 className={cn(
                                     "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
-                                    isActive ? "bg-primary text-white" : "text-slate-400 hover:text-white hover:bg-slate-800"
+                                    isActive ? "bg-white/20 text-white font-semibold" : "text-white/70 hover:text-white hover:bg-white/10"
                                 )}
                             >
                                 <item.icon className="h-5 w-5" />
@@ -80,13 +80,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     })}
                 </nav>
 
-                <div className="p-4 border-t border-slate-700">
-                    <div className="mb-2 text-sm text-slate-400">
+                <div className="p-4 border-t border-white/20">
+                    <div className="mb-2 text-sm text-white/70">
                         Logueado como: {session.user?.name}
                     </div>
                     <Button
-                        variant="destructive"
-                        className="w-full flex gap-2"
+                        variant="secondary"
+                        className="w-full flex gap-2 bg-white/20 text-white hover:bg-white/30 border-0"
                         onClick={() => signOut({ callbackUrl: '/admin/login' })}
                     >
                         <LogOut className="h-4 w-4" /> Cerrar Sesión
