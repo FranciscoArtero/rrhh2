@@ -52,48 +52,41 @@ export async function GET(req: Request) {
 
         // Calculate stats per employee
         const report = Object.values(empData).map(emp => {
-            // Re-calc daily approach
             const recs = emp.registros;
-
             const dias = emp.diasTrabajados.size;
-            // Calculate daily stats
-            // Simplified rule: Excess of (dias * 8) is overtime. 
-            // Or calculate daily? User asked for "Hours extra (>8h per day)".
-            // Let's refine calculation to be daily based.
 
-            // Re-calc daily approach
             let totalHorasDailySum = 0;
             let totalNormal = 0;
             let totalExtras = 0;
             let totalNocturnas = 0;
 
-            // Group by day for this employee
-            const dayGroups: Record<string, typeof records> = {};
-            recs.forEach(r => {
-                const d = new Date(r.timestamp).toDateString();
-                if (!dayGroups[d]) dayGroups[d] = [];
-                dayGroups[d].push(r);
-            });
+            // Process all records sequentially (not grouped by day)
+            // This correctly handles shifts that cross midnight
+            for (let i = 0; i < recs.length; i++) {
+                if (recs[i].tipo === 'ENTRADA') {
+                    // Find the next SALIDA
+                    let j = i + 1;
+                    while (j < recs.length && recs[j].tipo !== 'SALIDA') j++;
 
-            Object.values(dayGroups).forEach(dayRecs => {
-                for (let i = 0; i < dayRecs.length - 1; i++) {
-                    if (dayRecs[i].tipo === 'ENTRADA') {
-                        let j = i + 1;
-                        while (j < dayRecs.length && dayRecs[j].tipo !== 'SALIDA') j++;
-                        if (j < dayRecs.length && dayRecs[j].tipo === 'SALIDA') {
-                            const detalle = calcularDetalleHoras(new Date(dayRecs[i].timestamp), new Date(dayRecs[j].timestamp));
-                            // detalle returns: { total, normal, extra, nocturna }
-                            if (detalle.total < 24) {
-                                totalHorasDailySum += detalle.total;
-                                totalNormal += detalle.normal;
-                                totalExtras += detalle.extra;
-                                totalNocturnas += detalle.nocturna;
-                            }
-                            i = j;
+                    if (j < recs.length && recs[j].tipo === 'SALIDA') {
+                        const entryTime = new Date(recs[i].timestamp);
+                        const exitTime = new Date(recs[j].timestamp);
+
+                        const detalle = calcularDetalleHoras(entryTime, exitTime);
+
+                        // Only add if reasonable (< 24 hours)
+                        if (detalle.total > 0 && detalle.total < 24) {
+                            totalHorasDailySum += detalle.total;
+                            totalNormal += detalle.normal;
+                            totalExtras += detalle.extra;
+                            totalNocturnas += detalle.nocturna;
                         }
+
+                        // Skip to after the exit
+                        i = j;
                     }
                 }
-            });
+            }
 
             return {
                 id: emp.id,
